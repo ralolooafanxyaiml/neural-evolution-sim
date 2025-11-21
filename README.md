@@ -13,11 +13,11 @@ The system operates through a structured pipeline. First, categorical data regar
 Usage
 to run the simulation locally, clone the repository and install the required dependencies:
 
-
+```bash
 git clone https://github.com/ralolooafanxyaiml/Neural-Evolution-Engine.git
 pip install tensorflow pandas numpy scikit-learn
 python evolution_sim.py
-
+```
 
 Key Features
 Key features of the engine include an infinite evolution loop that dynamically resolves conflicting traits, such as replacing fur with scales based on new environmental data. It incorporates a sophisticated Archetype System capable of recognizing over 100 animal types by mapping them to 15 core biological categories. Additionally, a smart Translation Layer converts raw numerical model outputs into scientific, descriptive text, adding nuance and context to the AI's predictions.
