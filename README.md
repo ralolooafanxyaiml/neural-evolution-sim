@@ -16,7 +16,7 @@ to run the simulation locally, clone the repository and install the required dep
 ```bash
 git clone https://github.com/ralolooafanxyaiml/Neural-Evolution-Engine.git
 pip install tensorflow pandas numpy scikit-learn
-python evolution_sim.py
+python neural-evolution-engine.py
 ```
 
 Key Features
