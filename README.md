@@ -8,15 +8,15 @@ Tech Stack & Methodology
 The project is built upon a robust stack of Python-based technologies. TensorFlow and Keras serve as the backbone for deep learning operations, while Pandas and NumPy handle data engineering and the generation of a synthetic dataset comprising 1440 unique scenarios. Scikit-Learn is utilized for critical preprocessing steps, including StandardScaler for feature scaling and One-Hot Encoding for target classification. The entire logic is encapsulated within an Object-Oriented Programming (OOP) structure to ensure modularity and scalability.
 
 How It Works
-The system operates through a structured pipeline. First, categorical data regarding animal archetypes and threats are converted into numerical vectors using custom mapping dictionaries and scaled to prevent algorithmic bias. The model is then trained for over 50 epochs using the Adam optimizer and Categorical Crossentropy loss function to minimize prediction error. The end-user interacts with this system through an infinite simulation loop that maps natural language inputs to biological archetypes. This allow users to input any animal name and introduce threats like "Ice Age" or "Nuclear War" to receive real-time, scientifically grounded evolutionary predictions.    
+The system operates through a structured pipeline. First, categorical data regarding animal archetypes and threats are converted into numerical vectors using custom mapping dictionaries and scaled to prevent algorithmic bias. The model is then trained for over 50 epochs using the Adam optimizer and Categorical Crossentropy loss function to minimize prediction error. The end-user interacts with this system through an infinite simulation loop that maps natural language inputs to biological archetypes. This allow users to input any animal name and introduce threats like "Ice Age" or "Nuclear War" to receive real-time, scientifically grounded evolutionary predictions.
 
 Usage
-To run the simulation locally, clone the repository and install the required dependencies:
------------------------------------------------------------------------
+to run the simulation locally, clone the repository and install the required dependencies:
+
 git clone https://github.com/ralolooafanxyaiml/Neural-Evolution-Engine.git
 pip install tensorflow pandas numpy scikit-learn
 python evolution_sim.py
------------------------------------------------------------------------
+
 
 Key Features
 Key features of the engine include an infinite evolution loop that dynamically resolves conflicting traits, such as replacing fur with scales based on new environmental data. It incorporates a sophisticated Archetype System capable of recognizing over 100 animal types by mapping them to 15 core biological categories. Additionally, a smart Translation Layer converts raw numerical model outputs into scientific, descriptive text, adding nuance and context to the AI's predictions.
