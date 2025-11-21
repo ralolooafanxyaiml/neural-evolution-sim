@@ -1,6 +1,6 @@
 # --- database.py ---
 
-# 1. TEMEL TİPLER
+# 1. BASIS
 ARCHETYPES = {
     "BIG_CAT": [1, 1, 1, 3, 1],
     "CANINE": [1, 1, 1, 2, 1],
@@ -24,7 +24,7 @@ ARCHETYPES = {
     "WINGED_INSECT": [0, 2, 3, 0, 3]
 }
 
-# 2. EVRİM AÇIKLAMALARI
+# 2. EVOLUTION MAPPING
 EVOLUTION_MAPPING = {
     0: [
         "Significant thickening of the dermal layer and fur density for extreme cold insulation.",
@@ -67,7 +67,7 @@ ATTRIBUTE_CATEGORIES = {
     5: "SENSORY"
 }
 
-# 3. VERİTABANLARINI OLUŞTURMA
+# 3. DATABASES
 ANIMAL_DATABASE = {}
 ANIMAL_DATABASE["dragon"] = [0, 2, 3, 4, 1]
 ANIMAL_DATABASE["alien"] = [1, 4, 1, 2, 3]
@@ -83,7 +83,7 @@ def add_threats(threat_id, keywords):
     for word in keywords:
         THREAT_DATABASE[word] = threat_id
 
-# Listeleri Yüklüyoruz
+# LISTS FOR DATABASES
 add_animals("BIG_CAT", ["lion", "tiger", "leopard", "jaguar", "cheetah", "panther", "cougar", "lynx"])
 add_animals("CANINE", ["wolf", "dog", "fox", "coyote", "jackal", "hyena", "dingo"])
 add_animals("HERBIVORE_MEGA", ["elephant", "rhino", "hippo", "giraffe", "dinosaur", "brachiosaurus", "mammoth"])
@@ -108,4 +108,5 @@ add_threats(1, ["cold", "freezing", "ice", "ice age", "snow", "blizzard", "arcti
 add_threats(2, ["heat", "hot", "fire", "lava", "magma", "volcano", "sun", "global warming", "desert", "dry"])
 add_threats(3, ["toxin", "toxic", "poison", "pollution", "plastic", "radiation", "nuclear", "virus", "bacteria"])
 add_threats(4, ["scarcity", "famine", "starvation", "hunger", "no food", "empty", "poverty"])
+
 add_threats(5, ["air", "no air", "oxygen", "suffocation", "space", "underwater", "predator", "hunter", "attack"])
