@@ -78,7 +78,7 @@ evolution_sim.fit_model(
 final_accuracy = evolution_sim.evaluate_model(X_test_scaled, y_test_encoded)
 
 # --- 3. MACHINE STARTING  --- # changed features too work CNN properly. # Visual Threat Input Mode Added!!
-def start_game_interface():
+def start_engine_interface():
     print("\n\n####################################################")
     print("#      NEURAL EVOLUTION ENGINE (V2.0) - READY  #") #V1.0 -) V2.0
     print("####################################################")
@@ -176,7 +176,8 @@ def start_game_interface():
 # START
 if __name__ == "__main__":
 
-    start_game_interface()
+    start_engine_interface()
+
 
 
 
