@@ -1,25 +1,74 @@
-Project Overview
-The Neural Evolution Engine is a Deep Learning application designed to simulate evolutionary biology principles through artificial intelligence. Built from scratch using TensorFlow and Keras, this system predicts the optimal adaptation strategy for a species when faced with catastrophic environmental threats. Unlike simple rule-based simulations, this project utilizes a custom Artificial Neural Network (ANN) trained on a synthetically generated dataset to classify evolutionary outcomes with high precision, effectively modeling the biological response to various stress factors.
+# Neural Evolution Engine V2.0: Multi-Modal AI Simulation
 
-Technical Architecture
-The core of the simulation relies on a Multi-Layer Perceptron (MLP) model designed to capture non-linear relationships between biological traits and environmental stressors. The model topology utilizes the Keras Sequential API, starting with an Input Layer of 6 neurons that processes encoded biological features such as metabolism, skin type, and habitat. This is followed by two dense Hidden Layers (32 and 16 neurons respectively) using the ReLU activation function to extract high-level patterns from the feature set. The architecture concludes with a Softmax Output Layer that generates a probability distribution across six distinct evolutionary outcomes. A specific, lightweight topology was chosen over pre-trained models to ensure maximum efficiency and interpretability for tabular biological data.
+### Project Overview
+**Neural Evolution Engine V2.0** is an advanced Deep Learning application built from scratch using **TensorFlow** and **Keras**. It simulates evolutionary biology principles by predicting the optimal adaptation strategy for a species when faced with catastrophic environmental threats.
 
-Tech Stack & Methodology
-The project is built upon a robust stack of Python-based technologies. TensorFlow and Keras serve as the backbone for deep learning operations, while Pandas and NumPy handle data engineering and the generation of a synthetic dataset comprising 1440 unique scenarios. Scikit-Learn is utilized for critical preprocessing steps, including StandardScaler for feature scaling and One-Hot Encoding for target classification. The entire logic is encapsulated within an Object-Oriented Programming (OOP) structure to ensure modularity and scalability.
+**What's New in V2.0?**
+Unlike traditional simulations, this engine features a **Hybrid Multi-Input Neural Network** capable of processing both **Biological Data (Text/Numerical)** and **Environmental Imagery (Visual Data)** simultaneously. The AI "sees" the threat (e.g., an image of a blizzard) and "knows" the animal's biology to make a prediction.
 
-How It Works
-The system operates through a structured pipeline. First, categorical data regarding animal archetypes and threats are converted into numerical vectors using custom mapping dictionaries and scaled to prevent algorithmic bias. The model is then trained for over 50 epochs using the Adam optimizer and Categorical Crossentropy loss function to minimize prediction error. The end-user interacts with this system through an infinite simulation loop that maps natural language inputs to biological archetypes. This allow users to input any animal name and introduce threats like "Ice Age" or "Nuclear War" to receive real-time, scientifically grounded evolutionary predictions.
+---
 
-Usage
-to run the simulation locally, clone the repository and install the required dependencies:
+### Technical Architecture (Dual-Core Brain)
 
+The model utilizes a sophisticated **Multi-Input Functional API** architecture that merges two distinct neural networks:
+
+#### 1. Visual Branch (The "Eye" - CNN)
+* **Input:** 64x64 RGB Images of environmental threats.
+* **Layers:** 2x Convolutional Layers (Conv2D) + MaxPooling2D for feature extraction.
+* **Function:** Analyzes visual patterns (snow, fire, toxic waste) to identify the nature of the threat.
+
+#### 2. Biological Branch (The "Brain" - ANN)
+* **Input:** Encoded biological features (Metabolism, Skin Type, Habitat, Size, Diet).
+* **Layers:** Dense Layers (32 -> 16 Neurons) with ReLU activation.
+* **Function:** Processes the organism's physiological constraints.
+
+#### 3. The Fusion Layer (Decision Making)
+* **Concatenate:** Merges the visual features from the CNN and the biological data from the ANN.
+* **Output Layer:** Softmax activation generating a probability distribution across 6 evolutionary outcomes.
+
+---
+
+### Tech Stack
+* **Deep Learning:** TensorFlow, Keras (Functional API)
+* **Computer Vision:** OpenCV (Image Preprocessing)
+* **Data Engineering:** Pandas, NumPy
+* **Preprocessing:** Scikit-Learn (StandardScaler, One-Hot Encoding)
+
+---
+
+### How It Works (Hybrid Modes)
+
+The simulation offers two distinct modes of interaction:
+
+1.  **Text Mode (Classic):** The user types the threat name (e.g., "Ice Age"), and the system maps it to a threat category.
+2.  **Visual Mode (New!):** The user uploads an image file (or the system selects a random simulation image), and the **CNN** analyzes the visual data to determine the threat.
+
+---
+
+### Usage
+
+To run the simulation locally, clone the repository and install the required dependencies:
+
+1. **Clone the Repository**
 ```bash
-git clone https://github.com/ralolooafanxyaiml/Neural-Evolution-Engine.git
-pip install tensorflow pandas numpy scikit-learn
+git clone [https://github.com/ralolooafanxyaiml/Neural-Evolution-Engine.git](https://github.com/YOUR_USERNAME/Neural-Evolution-Engine.git)
+cd Neural-Evolution-Engine
+pip install tensorflow pandas numpy scikit-learn opencv-python
+python setup.py
 python main.py
 ```
 
-Key Features
-Key features of the engine include an infinite evolution loop that dynamically resolves conflicting traits, such as replacing fur with scales based on new environmental data. It incorporates a sophisticated Archetype System capable of recognizing over 100 animal types by mapping them to 15 core biological categories. Additionally, a smart Translation Layer converts raw numerical model outputs into scientific, descriptive text, adding nuance and context to the AI's predictions.
+Data Sources & Acknowledgements
+This project uses the following public datasets for training the Visual Threat Detection (CNN) module:
+
+Intel Image Classification by Puneet Bansal (Cold/Ice)
+
+Natural Disaster Images by Aseem Arora (Heat/Fire)
+
+Garbage Classification by Sashaank Sekar (Toxin/Pollution)
+
+Underwater Image Classification by Great Sharma (Airless/Aquatic)
+
+US Drought Data (Scarcity)
 
 Developed by Mustafa İlker Aktaş - Global AI Contributor
