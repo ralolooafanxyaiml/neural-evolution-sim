@@ -47,7 +47,7 @@ final_accuracy = evolution_sim.evaluate_model(X_test_scaled, y_test_encoded)
 # --- 3. MACHINE STARTING  ---
 def start_game_interface():
     print("\n\n####################################################")
-    print("#      NEURAL EVOLUTION ENGINE (V1.0 OOP) - READY  #")
+    print("#      NEURAL EVOLUTION ENGINE (V1.0) - READY  #")
     print("####################################################")
     
     while True:
@@ -118,5 +118,6 @@ def start_game_interface():
 if __name__ == "__main__":
 
     start_game_interface()
+
 
 
