@@ -1,19 +1,64 @@
 # --- main.py ---
-# imported os, cv2.
+# imported json, pickle.
 import pandas as pd
 import numpy as np
 import random
 import os
 import cv2
+import json
+import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-# OWN MODULS
+# OWN MODULES
 from database import ANIMAL_DATABASE, THREAT_DATABASE, EVOLUTION_MAPPING, ATTRIBUTE_CATEGORIES
 from evolution_model import EvolutionModel
 
-# --- 1. VISUAL DATA LOAD --- added new
+# --- 1. VISUAL DATA LOAD --- added evolution chatbot model!
+def evolution_chatbot_model():
+    print("Loading neural pathways, please wait...")
+
+    try:
+        model = load_model('evolutionchatbotmodel.h5')
+        
+        with open('tokenizer.pickle', 'rb') as handle:
+            tokenizer = pickle.load(handle)
+            
+        with open('label_encoder.pickle', 'rb') as enc_file:
+            lbl_encoder = pickle.load(enc_file)
+            
+        with open('intents.json', 'r', encoding='utf-8') as file:
+            data = json.load(file)
+            
+        print("SYSTEM READY. You can talk with me about evolution! (Type 'quit' to exit)")
+
+    except Exception as e:
+        print(f"ERROR: {e}")
+        return
+
+    max_len = 20
+    
+    while True:
+        print("\n------------------------------------------------")
+        user_input = input("You: ")
+        
+        if user_input.lower() in ["quit", "exit", "bye"]:
+            print("Conversation is finished.")
+            break
+        
+        try:
+            result = model.predict(pad_sequences(tokenizer.texts_to_sequences([user_input]), 
+                                                 truncating='post', maxlen=max_len), verbose=0)
+            tag = lbl_encoder.inverse_transform([np.argmax(result)])
+            
+            for i in data['intents']:
+                if i['tag'] == tag:
+                    print(f"NEE: {np.random.choice(i['responses'])}")
+        except:
+             print("NEE: ...")
 
 def load_images_and_threats(df):
     image_data = []
@@ -41,7 +86,7 @@ def load_images_and_threats(df):
             valid_indices.append(index)
     return np.array(image_data), df.iloc[valid_indices]
     
-# --- 1. DATA ENCODING --- # df is changed as raw_df because of df is used at visual data load. # added image train/test. # epochs deceased for CNN.
+# --- 1. DATA ENCODING ---
 github_data_url = "https://raw.githubusercontent.com/ralolooafanxyaiml/neural-evolution-sim/refs/heads/main/data.csv"
 raw_df = pd.read_csv(github_data_url)
 
@@ -50,7 +95,9 @@ X_images, df = load_images_and_threats(raw_df)
 X = df[["METABOLISM", "SKIN", "HABITAT", "SIZE", "DIET", "THREAT"]]
 y = df["EVOLUTION_TARGET"]
 
-X_img_train, X_img_test, X_test, X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Correct Split (3 inputs -> 6 outputs)
+X_img_train, X_img_test, X_train, X_test, y_train, y_test = train_test_split(X_images, X, y, test_size=0.2, random_state=42)
+
 y_train_encoded = to_categorical(y_train, num_classes=6)
 y_test_encoded = to_categorical(y_test, num_classes=6)
 
@@ -69,116 +116,129 @@ evolution_sim = EvolutionModel(
 )
 
 evolution_sim.compile_model()
+
+# Training
 evolution_sim.fit_model(
-    [X_train_scaled, X_img_train] y_train_encoded, 
+    [X_train_scaled, X_img_train], y_train_encoded, 
     epochs=20, batch_size=32, 
     X_test=[X_test_scaled, X_img_test], y_test=y_test_encoded
 )
 
-final_accuracy = evolution_sim.evaluate_model(X_test_scaled, y_test_encoded)
+final_accuracy = evolution_sim.evaluate_model([X_test_scaled, X_img_test], y_test_encoded)
 
-# --- 3. MACHINE STARTING  --- # changed features too work CNN properly. # Visual Threat Input Mode Added!!
+# --- 3. MACHINE STARTING ---
 def start_engine_interface():
-    print("\n\n####################################################")
-    print("#      NEURAL EVOLUTION ENGINE (V2.0) - READY  #") #V1.0 -) V2.0
-    print("####################################################")
-    
     while True:
-        print("\n--- NEW EVOLUTIONARY LINEAGE STARTED ---")
-        features = []
-        animal_name_display = ""
+        print("\n\n####################################################")
+        print("#      NEURAL EVOLUTION ENGINE (V3.0) - READY      #") # v2.0 -) v3.0!!!
+        print("####################################################")
+        print("1. Start NEE Simulation (CNN/ANN)")
+        print("2. Chat with NEE AI Assistant (NLP)")
+        print("3. Quit")
+        print("####################################################")
+
+        choice = input("Select Mode: ")
+
+        if choice == "2":
+            evolution_chatbot_model()
+
+        elif choice == "3":
+            break
         
-        # ANIMAL CHANGE
-        while True:
-            user_animal = input("\n>> ENTER ANIMAL NAME (or 'exit' to close): ").lower().strip()
-            if user_animal == 'exit':
-                print("Goodbye!")
-                return 
+        elif choice == "1":
+            print("\n>> Starting NEE Simulation...")
+        
+            while True:
+                print("\n--- NEW EVOLUTIONARY LINEAGE STARTED ---")
+                features = []
+                animal_name_display = ""
+                
+                # Animal Loop
+                while True:
+                    user_animal = input("\n>> ENTER ANIMAL NAME (or 'exit' to menu): ").lower().strip()
+                    if user_animal == 'exit':
+                        break 
+                    
+                    if user_animal in ANIMAL_DATABASE:
+                        features = ANIMAL_DATABASE[user_animal][:5]
+                        animal_name_display = user_animal.capitalize()
+                        print(f"   Organism Selected: {animal_name_display}")
+                        break
+                    else:
+                        print(f"   Unknown Animal. Try: Lion, Wolf, Snake, Shark...")
+                
+                if user_animal == 'exit': break 
 
-            if user_animal in ANIMAL_DATABASE:
-                features = ANIMAL_DATABASE[user_animal][:5]
-                animal_name_display = user_animal.capitalize()
-                print(f"   Organism Selected: {animal_name_display}")
-                break
-            else:
-                print(f"   Unknown Animal. Try: Lion, Wolf, Snake, Shark...")
+                current_evolution_attributes = {} 
 
-        current_evolution_attributes = {} 
+                print("\nSELECT THREAT INPUT MODE:")
+                print("   [1] TEXT INPUT")
+                print("   [2] VISUAL INPUT")
+                mode = input(">> Mode (1/2): ").strip()
+         
+                # Threat Loop
+                while True:
+                    print(f"\n   --- Current Organism: {animal_name_display} ---")
 
-            print("\nSELECT THREAT INPUT MODE:")
-            print("   [1] TEXT INPUT")
-            print("   [2] VISUAL INPUT")
-            mode = input(">> Mode (1/2): ").strip()
+                    input_img = None
+                    threat_desc = "Unknown"
 
-        # THREATS AND EVOLUTIONS. # Added Visual Mode and Selecting Mode.
-        while True:
-            print(f"\n   --- Current Organism: {animal_name_display} ---")
+                    if mode == "1":
+                        user_threat = input(">> ENTER THREAT (or type 'quit' to change animal): ").lower().strip()
+                        if user_threat == 'quit':
+                            break 
+                        
+                        threat_id = None
+                        for key in THREAT_DATABASE:
+                            if key in user_threat:
+                                threat_id = THREAT_DATABASE[key]
+                                break
+                        
+                        if not threat_id:
+                            print("   Unknown Threat. Try: Cold, Heat, Virus, Predator...")
+                            continue
 
-            input_img = None
-            threat_desc = "Unknown"
+                        input_img = np.zeros((1, 64, 64, 3))
+                        threat_desc = user_threat.upper()
 
-            if mode == "1":
-                user_threat = input(">> ENTER THREAT (or type 'quit' to change animal): ").lower().strip()
-                if user_threat == 'quit':
-                    break 
-            
-                threat_id = None
-                for key in THREAT_DATABASE:
-                    if key in user_threat:
-                       threat_id = THREAT_DATABASE[key]
-                       break
-            
-                if not threat_id:
-                print("   Unknown Threat. Try: Cold, Heat, Virus, Predator...")
-                continue
+                    elif mode == '2':
+                        user_path = input(">> ENTER IMAGE PATH (or 'quit'): ").strip()
+                        if user_path == "quit": break
 
-                input_img = np.zeros((1, 64, 64, 3))
-                threat_desc = user_threat.upper()
+                        try:
+                            img = cv2.imread(user_path)
+                            img = cv2.resize(img, (64, 64))
+                            input_img = np.array([img / 255.0])
+                            threat_desc = "VISUAL THREAT"
+                        except:
+                            print("   Image Error! Using blank.")
+                            input_img = np.zeros((1, 64, 64, 3))
 
-            elif mode == '2':
-                user_path = input(">> ENTER IMAGE PATH (or 'quit'): ").strip()
-                if user_path == "quit": break
+                    biological_input = np.array([features]) 
+                    input_scaled = scaler.transform(biological_input)
 
-                try:
-                    img = cv2.imread(user_path)
-                    img = cv2.resize(img, (64, 64))
-                    input_img = np.array([img / 255.0])
-                    threat_desc = "VISUAL THREAT"
-                except:
-                    print("   Image Error! Using blank.")
-                    input_img = np.zeros((1, 64, 64, 3))
+                    # Predict
+                    probs = evolution_sim.model.predict([input_scaled, input_img], verbose=0)
+                    predicted_id = np.argmax(probs, axis=1)[0]
 
-            # PREDICT # Added visual predicts!!
-            biological_input = np.array([features]) # Threat ID yok, sadece biyolojik
-            input_scaled = scaler.transform(biological_input)
+                    evolution_options = EVOLUTION_MAPPING.get(predicted_id, ["Error"])
+                    final_description = random.choice(evolution_options)
+                    
+                    category = ATTRIBUTE_CATEGORIES.get(predicted_id, "UNKNOWN")
+                    current_evolution_attributes[category] = final_description
+                    
+                    print(f"\n   EVOLUTION TRIGGERED: {category}")
+                    print(f"   Result: {final_description}")
+                    
+                    print("\n   [CURRENT DNA INVENTORY]:")
+                    if not current_evolution_attributes:
+                        print("      (No mutations yet)")
+                    else:
+                        for cat, desc in current_evolution_attributes.items():
+                            print(f"      * {cat}: {desc}")
+                    print("-" * 50)
+        else:
+           print("Invalid Choice! Please write 1, 2 or 3.")
 
-            probs = evolution_sim.model.predict([input_img, input_scaled], verbose=0)
-            predicted_id = np.argmax(probs, axis=1)[0]
-
-            # RESULTS
-            evolution_options = EVOLUTION_MAPPING.get(predicted_id, ["Error"])
-            final_description = random.choice(evolution_options)
-            
-            category = ATTRIBUTE_CATEGORIES.get(predicted_id, "UNKNOWN")
-            current_evolution_attributes[category] = final_description
-            
-            print(f"\n   EVOLUTION TRIGGERED: {category}")
-            print(f"   Result: {final_description}")
-            
-            print("\n   [CURRENT DNA INVENTORY]:")
-            if not current_evolution_attributes:
-                print("      (No mutations yet)")
-            else:
-                for cat, desc in current_evolution_attributes.items():
-                    print(f"      * {cat}: {desc}")
-            print("-" * 50)
-
-# START
 if __name__ == "__main__":
-
     start_engine_interface()
-
-
-
-
-
