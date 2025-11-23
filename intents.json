@@ -1,0 +1,54 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hello", "Hey", "Are you there?", "Start", "Wake up", "Good morning"],
+      "responses": ["Hello Human! Ready to evolve?", "Hi there! Which species are we saving today?", "I am online. Let's talk biology."]
+    },
+    {
+      "tag": "about_evolution",
+      "patterns": ["What is evolution?", "Define evolution", "Explain evolution", "Tell me about evolution"],
+      "responses": ["Evolution is the change in the heritable characteristics of biological populations over successive generations.", "It is the process by which different kinds of living organisms are thought to have developed and diversified from earlier forms."]
+    },
+    {
+      "tag": "natural_selection",
+      "patterns": ["What is natural selection?", "How does selection work?", "Survival of the fittest", "Explain natural selection"],
+      "responses": ["Natural selection is the differential survival and reproduction of individuals due to differences in phenotype.", "It's the mechanism where organisms better adapted to their environment tend to survive and produce more offspring."]
+    },
+    {
+      "tag": "mutation",
+      "patterns": ["What is a mutation?", "Are mutations bad?", "How do mutations happen?", "Explain mutation"],
+      "responses": ["A mutation is a change in the DNA sequence of an organism. It is the primary source of genetic variation.", "Mutations can be harmful, beneficial, or neutral. Without them, evolution wouldn't have raw material to work with!"]
+    },
+    {
+      "tag": "adaptation",
+      "patterns": ["What is adaptation?", "Examples of adaptation", "How do animals adapt?"],
+      "responses": ["Adaptation is a trait with a current functional role in the life history of an organism that is maintained and evolved by means of natural selection.", "Thicker fur for cold, camouflage for hiding, and sharp teeth for hunting are all adaptations."]
+    },
+    {
+      "tag": "genetic_drift",
+      "patterns": ["What is genetic drift?", "Explain genetic drift", "Is drift same as selection?"],
+      "responses": ["Genetic drift is the change in the frequency of an existing gene variant in a population due to random chance.", "Unlike selection, drift is random. A volcano erupting and killing half a population is genetic drift, not selection!"]
+    },
+    {
+      "tag": "speciation",
+      "patterns": ["What is speciation?", "How do new species form?", "Define speciation"],
+      "responses": ["Speciation is the evolutionary process by which populations evolve to become distinct species.", "It often happens when a population is geographically isolated and evolves separately from the main group."]
+    },
+    {
+      "tag": "technical_architecture",
+      "patterns": ["How do you work?", "What is your model?", "Do you use CNN?", "How do you see images?", "Architecture"],
+      "responses": ["I possess a Hybrid Brain! I use CNNs (Convolutional Neural Networks) to analyze environmental images and ANNs for biological data.", "My vision comes from a CNN trained on disaster images, while my logic is powered by LSTM networks."]
+    },
+    {
+      "tag": "system_capabilities",
+      "patterns": ["What can you do?", "Help", "Capabilities", "Features"],
+      "responses": ["I can simulate evolution scenarios based on visual threats or chat with you about evolutionary biology concepts.", "You can show me a picture of a disaster, or ask me about DNA, mutations, and selection."]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you", "Exit", "Quit", "Shutdown", "Good night"],
+      "responses": ["Stay safe out there, a god can be watching you right now.", "Evolution never stops, but you can rest now. Bye!", "Don't let the extinction event catch you!"]
+    }
+  ]
+}
