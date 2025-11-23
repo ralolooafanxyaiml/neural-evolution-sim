@@ -110,3 +110,4 @@ add_threats(3, ["toxin", "toxic", "poison", "pollution", "plastic", "radiation",
 add_threats(4, ["scarcity", "famine", "starvation", "hunger", "no food", "empty", "poverty"])
 
 add_threats(5, ["air", "no air", "oxygen", "suffocation", "space", "underwater", "predator", "hunter", "attack"])
+
