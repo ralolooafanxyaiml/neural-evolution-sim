@@ -142,7 +142,7 @@ final_accuracy = evolution_sim.evaluate_model([X_test_scaled, X_img_test], y_tes
 try:
     GENERATOR_MODEL: load_model("generator_model.h5", compile = False)
     GENERATOR_READY = True
-    LATENT_DIM
+    LATENT_DIM = 100
 except:
     GENERATOR_MODEL = None
     GENERATOR_READY = False
@@ -302,5 +302,6 @@ def start_engine_interface():
 # START
 if __name__ == "__main__":
     start_engine_interface()
+
 
 
